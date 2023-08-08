@@ -12,22 +12,17 @@ import Data.bin_list as binlist
 import serial
 import time
 
-
-#t1 = [1,1,1,1,1,1,1]
-#t2 = [0,0,0,0,0,0,0]
-#t3 = [0,1,0,1,0,1,0]
-
 #Bluetooth init
 
-#bluetooth = serial.Serial('COM4', 9600, timeout = 0.3)
+bluetooth = serial.Serial('COM4', 9600, timeout = 0.3)
 
 DURATION = 0.5
 
 def read_bt():                              ##### RETURNS DECIMAL NUMBER THAT INDICATES CLOSED notes
     global bluetooth
-    #bluetooth.flushInput()
-    #input_data = int((bluetooth.readline().strip().decode("UTF-8")))
-    input_data = ardem.signal_emulator()
+    bluetooth.flushInput()
+    input_data = int((bluetooth.readline().strip().decode("UTF-8")))
+    #input_data = ardem.signal_emulator()
     time.sleep(0.3)
     
     return input_data
