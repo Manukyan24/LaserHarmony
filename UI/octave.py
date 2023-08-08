@@ -17,6 +17,10 @@ def choose_notes_f(recieved_data, N_oct):
     return send_data
 
 
+
+
+
+
 #print(choose_notes_f([1,3,5], 2))
 
 # def create_note_list(C,D,E,F,G,A,B):

@@ -3,7 +3,14 @@ import tkinter as tk
 from tkinter import ttk
 
 import UI.gui as gui
-import UI.bin_list as binlist
+import UI.octave as octave
+import UI.sound as sound
+import UI.ArduinoEmulation as ardem
+
+import Data.bin_list as binlist
+#import Data.bluetoothdata as blut
+import serial
+import serial.tools.list_ports
 
 
 
@@ -53,11 +60,23 @@ if __name__ == "__main__":
     red_coloring_style = ttk.Style()
     red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
     
-    
-
     #Packing Frames of main Window
     gui.ttk_pack_GUI_Frames(title_frame, notes_frame, adjusting_buttons_frame)
-    
 
+    #///////////////////
+    #//////// DEBUG
+    #///////////////////
+    
+    #print(binlist.none_zero_list(ardem.a))
+    
+    #
+    #ports = list(serial.tools.list_ports.comports())
+    #for p in ports:
+    #    print(p)
+    
+    #ser = serial.Serial('COM3',9600, timeout = 1)
+    #for i in range(2):
+    #    data = int.from_bytes(ser.readline().decode('utf-8'))
+    
 
 root.mainloop()

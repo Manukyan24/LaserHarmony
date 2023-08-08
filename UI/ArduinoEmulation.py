@@ -1,13 +1,15 @@
 import random
 import time
 #cash = {"num": None}
+a=1
 def signal_emulator():
+
     print(random.randint(0, 127))
-    time.sleep(2)
+    #time.sleep(2)
+    global a 
+    a = randon.randint(0, 127)
     signal_emulator()
-signal_emulator()
-
-
+    
 
 
 
