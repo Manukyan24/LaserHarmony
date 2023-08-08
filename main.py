@@ -19,24 +19,27 @@ import time
 
 #Bluetooth init
 
-bluetooth = serial.Serial('COM6', 9600, timeout = 0.3) #### UNCOMENT WHEN KNOW COM PORT ID
+#bluetooth = serial.Serial('COM4', 9600, timeout = 0.3)
 
-
+DURATION = 0.5
 
 def read_bt():                              ##### RETURNS DECIMAL NUMBER THAT INDICATES CLOSED notes
     global bluetooth
-    bluetooth.flushInput()
-    input_data = int((bluetooth.readline().strip().decode("UTF-8")))
-    time.sleep(0.1)
+    #bluetooth.flushInput()
+    #input_data = int((bluetooth.readline().strip().decode("UTF-8")))
+    input_data = ardem.signal_emulator()
+    time.sleep(0.3)
+    
     return input_data
 
 
-
-def note_paint_pattern_gen(choose_note_list):
-    act_vector = []
+def note_paint_pattern_get(choose_note_list):
+    act_vector = [0,0,0,0,0,0,0]
     for i in choose_note_list:
         act_vector[i] = 1
+
     return act_vector
+
 
 
 
@@ -44,17 +47,22 @@ def test_main_loop():
     Bluetooth_Data = read_bt() # Number that indicates closed notes
     closed_notes_indexes =  binlist.none_zero_list(Bluetooth_Data)
     #list of playing freq
-    freq_list = choose_notes_f(closed_notes_indexes, gui.Octave_Num)
+    freq_list = octave.choose_notes_f(closed_notes_indexes, gui.Octave_Num)
+    print(freq_list)
     # BitMask for color activation    
     color_activation_mask = note_paint_pattern_get(closed_notes_indexes)
+    gui.clear_note_color_setting()
     gui.activated_note_color_setting(color_activation_mask)
     
+    
+
     #playing sound
-    tones = sound.generate_tones(choose_notes_f)
-    sound.play_audio(tones)
+    tones_1 = sound.generate_tones(freq_list,DURATION)
+    print(tones_1)
+    sound.play_audio(tones_1)
     
     
-    root.after(1000, test_main_loop)
+    root.after(500, test_main_loop)
     
 
 
@@ -103,16 +111,19 @@ if __name__ == "__main__":
     #Styles
     red_coloring_style = ttk.Style()
     red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
+
+    default_style = ttk.Style()
+    default_style.configure("DefStyle.TLabel", foreground = 'black')
     
     #Packing Frames of main Window
     gui.ttk_pack_GUI_Frames(title_frame, notes_frame, adjusting_buttons_frame)
     
-    a = [1,0,0,0,0,1,1]
-    gui.activated_note_color_setting(a)
+    
     
     #///////////////////
     #//////// DEBUG
     #///////////////////
+
 
     root.after(2000,test_main_loop)
     root.mainloop()

@@ -4,11 +4,10 @@ import time
 a=1
 def signal_emulator():
 
-    print(random.randint(0, 127))
-    #time.sleep(2)
-    global a 
-    a = random.randint(0, 127)
-    signal_emulator()
+    #print(random.randint(0, 127))
+    #time.sleep(2) 
+    return random.randint(0, 127)
+    
     
 
 
