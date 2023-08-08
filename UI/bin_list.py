@@ -16,7 +16,10 @@ def none_zero_list(num):
         arr.append(i) if check_if_bin(num, i) else arr
     return arr
 
-print(none_zero_list(20))
+arr = [55,62,65,73,82,87,98]
+
+
+#print(none_zero_list(20))
 
 
 

@@ -41,20 +41,31 @@ def ttk_pack_GUI_Frames(title_frame,notes_frame,adjusting_buttons_frame):
     notes_frame.pack(padx = 10, pady = 100)
     adjusting_buttons_frame.pack(side = tk.LEFT, padx = 10)
 
-
-
+"""
 class Octave:
-    Octave_Num = 0
+    Octave_Num = 11
     def __init__(self):
-        self.Octave_Num = 0
-    def inc_oct(self, oct_num_ind):
+        #self.Octave_Num = 0
+        pass
+    def inc_oct(self):
         self.Octave_Num += 1
-        oct_num_ind.configure(text = self.Octave_Num)
+        #Oct_ind_label.configure(text = self.Octave_Num)
     def dec_oct(self, oct_num_ind):
         self.Octave_Num -= 1
         oct_num_ind.configure(text = self.Octave_Num)
-        
+"""
 
+Octave_Num = 1
+
+def inc_oct():
+    global Octave_Num
+    if Octave_Num < 6:
+        Octave_Num += 1
+    
+def dec_oct():
+    global Octave_Num
+    if Octave_Num > 1:
+        Octave_Num -= 1
 #red_coloring_style = ttk.Style() # ttk Style for changing trigered notes color
 #red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
 
