@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-import UI. gui as gui
+import UI.gui as gui
 
 
 
