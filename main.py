@@ -3,10 +3,17 @@ import tkinter as tk
 from tkinter import ttk
 
 import UI.gui as gui
+import UI.bin_list as binlist
 
 
 
-
+def display_inc_oct():
+    gui.inc_oct()
+    Oct_ind_label.configure(text = gui.Octave_Num)
+    
+def display_dec_oct():
+    gui.dec_oct()
+    Oct_ind_label.configure(text = gui.Octave_Num)
 
 
 if __name__ == "__main__":
@@ -23,26 +30,25 @@ if __name__ == "__main__":
     #Displaying title and notes
     gui.display_title_in_GUI(title_frame)
     gui.init_display_notes(notes_frame)
-    
-    
-    
-
-
-    ###### BUTTONS #######
-    Oct = gui.Octave()
-    Oct_ind_label = ttk.Label(master = adjusting_buttons_frame, text = Oct.Octave_Num)
+    #////////////////
     
     
 
-    Octave_Add_Btn = ttk.Button(master = adjusting_buttons_frame, text = '+', command = Oct.inc_oct(Oct_ind_label))
+    ###### BUTTONS ######
+
+    #// OCT LABEL
+    Oct_ind_label = ttk.Label(master = adjusting_buttons_frame, text = gui.Octave_Num, borderwidth = 2, relief = tk.SOLID, font = ("System",15))   
+    #///////// Octave Add btn ////////////
+    Octave_Add_Btn = ttk.Button(master = adjusting_buttons_frame, text = '+', command = display_inc_oct)
     Octave_Add_Btn.pack(side = tk.LEFT)
     
+    #//////////// Octave  Sub btn //////////
+    Octave_Sub_Btn = ttk.Button(master = adjusting_buttons_frame, text = '-', command = display_dec_oct)
+    Octave_Sub_Btn.pack(side = tk.LEFT)
+    #//////////////////////////////
+    Oct_ind_label.pack(side = tk.LEFT, padx = 10)
     
-    Oct_ind_label = ttk.Label(master = adjusting_buttons_frame, text = Oct.Octave_Num)
-    Oct_ind_label.pack(side = tk.LEFT)
-
     
-
     #Styles
     red_coloring_style = ttk.Style()
     red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
@@ -53,4 +59,5 @@ if __name__ == "__main__":
     gui.ttk_pack_GUI_Frames(title_frame, notes_frame, adjusting_buttons_frame)
     
 
-    root.mainloop()
+
+root.mainloop()
