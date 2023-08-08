@@ -10,7 +10,52 @@ import UI.ArduinoEmulation as ardem
 import Data.bin_list as binlist
 #import Data.bluetoothdata as blut
 import serial
-import serial.tools.list_ports
+import time
+
+
+#t1 = [1,1,1,1,1,1,1]
+#t2 = [0,0,0,0,0,0,0]
+#t3 = [0,1,0,1,0,1,0]
+
+#Bluetooth init
+
+bluetooth = serial.Serial('COM6', 9600, timeout = 0.3) #### UNCOMENT WHEN KNOW COM PORT ID
+
+
+
+def read_bt():                              ##### RETURNS DECIMAL NUMBER THAT INDICATES CLOSED notes
+    global bluetooth
+    bluetooth.flushInput()
+    input_data = int((bluetooth.readline().strip().decode("UTF-8")))
+    time.sleep(0.1)
+    return input_data
+
+
+
+def note_paint_pattern_gen(choose_note_list):
+    act_vector = []
+    for i in choose_note_list:
+        act_vector[i] = 1
+    return act_vector
+
+
+
+def test_main_loop():
+    Bluetooth_Data = read_bt() # Number that indicates closed notes
+    closed_notes_indexes =  binlist.none_zero_list(Bluetooth_Data)
+    #list of playing freq
+    freq_list = choose_notes_f(closed_notes_indexes, gui.Octave_Num)
+    # BitMask for color activation    
+    color_activation_mask = note_paint_pattern_get(closed_notes_indexes)
+    gui.activated_note_color_setting(color_activation_mask)
+    
+    #playing sound
+    tones = sound.generate_tones(choose_notes_f)
+    sound.play_audio(tones)
+    
+    
+    root.after(1000, test_main_loop)
+    
 
 
 
@@ -26,7 +71,7 @@ def display_dec_oct():
 if __name__ == "__main__":
 ## Starting and initializing tkinter
     root = tk.Tk()
-
+    
     gui.init_window(root)
     
     #Frames
@@ -37,12 +82,11 @@ if __name__ == "__main__":
     #Displaying title and notes
     gui.display_title_in_GUI(title_frame)
     gui.init_display_notes(notes_frame)
-    #////////////////
+    #////////////////////#
     
     
-
     ###### BUTTONS ######
-
+    
     #// OCT LABEL
     Oct_ind_label = ttk.Label(master = adjusting_buttons_frame, text = gui.Octave_Num, borderwidth = 2, relief = tk.SOLID, font = ("System",15))   
     #///////// Octave Add btn ////////////
@@ -55,28 +99,22 @@ if __name__ == "__main__":
     #//////////////////////////////
     Oct_ind_label.pack(side = tk.LEFT, padx = 10)
     
-    
+       
     #Styles
     red_coloring_style = ttk.Style()
     red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
     
     #Packing Frames of main Window
     gui.ttk_pack_GUI_Frames(title_frame, notes_frame, adjusting_buttons_frame)
-
+    
+    a = [1,0,0,0,0,1,1]
+    gui.activated_note_color_setting(a)
+    
     #///////////////////
     #//////// DEBUG
     #///////////////////
-    
-    #print(binlist.none_zero_list(ardem.a))
-    
-    #
-    #ports = list(serial.tools.list_ports.comports())
-    #for p in ports:
-    #    print(p)
-    
-    #ser = serial.Serial('COM3',9600, timeout = 1)
-    #for i in range(2):
-    #    data = int.from_bytes(ser.readline().decode('utf-8'))
-    
 
-root.mainloop()
+    root.after(2000,test_main_loop)
+    root.mainloop()
+    
+    

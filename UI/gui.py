@@ -17,6 +17,7 @@ def init_display_notes(notes_frame):
         label = ttk.Label(master = notes_frame, text = note, borderwidth = notes_borderwidth, font = notes_font)
         label.pack(side = tk.LEFT)
         Notes_Label_List.append(label)
+        
 
 
 def init_window(root):
@@ -33,7 +34,6 @@ def activated_note_color_setting(trigered_notes_list):
     for labels in Notes_Label_List:
         if trigered_notes_list[i] == 1:
             labels.configure(style = "RedBtnStyle.TLabel")
-
 
 
 def ttk_pack_GUI_Frames(title_frame,notes_frame,adjusting_buttons_frame):

@@ -2,6 +2,7 @@ import pyaudio
 import numpy as np
 
 
+
 def generate_tones(frequencies, duration, volume=0.5, sample_rate=44100):
     num_samples = int(sample_rate * duration)
     samples = np.arange(num_samples)
@@ -28,6 +29,8 @@ def play_audio(audio_data, sample_rate=44100):
     p.terminate()
 
 
+
+'''
 if __name__ == "__main__":
     # List of frequencies to play simultaneously
     frequencies_hz = [261, 63, 329.63, 392, ]  # A4, C5, E5, A5-
@@ -35,5 +38,4 @@ if __name__ == "__main__":
 
     audio_data = generate_tones(frequencies_hz, duration_seconds)
     play_audio(audio_data)
-
-
+'''
