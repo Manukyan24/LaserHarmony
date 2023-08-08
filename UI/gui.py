@@ -55,7 +55,7 @@ class Octave:
         oct_num_ind.configure(text = self.Octave_Num)
 """
 
-Octave_Num = 1
+Octave_Num = 0
 
 def inc_oct():
     global Octave_Num
@@ -64,13 +64,9 @@ def inc_oct():
     
 def dec_oct():
     global Octave_Num
-    if Octave_Num > 1:
+    if Octave_Num > 0:
         Octave_Num -= 1
 #red_coloring_style = ttk.Style() # ttk Style for changing trigered notes color
 #red_coloring_style.configure("RedBtnStyle.TLabel", foreground = 'red')
-
-
-
-
 
 
