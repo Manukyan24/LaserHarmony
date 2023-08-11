@@ -12,17 +12,18 @@ import Data.bin_list as binlist
 import serial
 import time
 
-#Bluetooth init
 
-bluetooth = serial.Serial('COM4', 9600, timeout = 0.3)
+
+#Bluetooth init
+#bluetooth = serial.Serial('COM4', 9600, timeout = 0.3)
 
 DURATION = 0.5
 
 def read_bt():                              ##### RETURNS DECIMAL NUMBER THAT INDICATES CLOSED notes
     global bluetooth
-    bluetooth.flushInput()
-    input_data = int((bluetooth.readline().strip().decode("UTF-8")))
-    #input_data = ardem.signal_emulator()
+    #bluetooth.flushInput()
+    #input_data = int((bluetooth.readline().strip().decode("UTF-8")))
+    input_data = ardem.signal_emulator()
     time.sleep(0.3)
     
     return input_data
@@ -77,29 +78,29 @@ if __name__ == "__main__":
     
     gui.init_window(root)
     
-    #Frames
+    #Tkinter Frames
     title_frame = ttk.Frame(root, width = 100, height = 100, borderwidth = 1)             
-    notes_frame = ttk.Frame(root,width = 100, height = 100, borderwidth = 1, relief = tk.SOLID) # ////////// Frames of window //////////
+    notes_frame = ttk.Frame(root,width = 100, height = 100, borderwidth = 1, relief = tk.SOLID)
     adjusting_buttons_frame = ttk.Frame(root)
     
     #Displaying title and notes
     gui.display_title_in_GUI(title_frame)
     gui.init_display_notes(notes_frame)
-    #////////////////////#
+
     
     
     ###### BUTTONS ######
     
-    #// OCT LABEL
+    #Oct label
     Oct_ind_label = ttk.Label(master = adjusting_buttons_frame, text = gui.Octave_Num, borderwidth = 2, relief = tk.SOLID, font = ("System",15))   
-    #///////// Octave Add btn ////////////
+    #Octave Add btn
     Octave_Add_Btn = ttk.Button(master = adjusting_buttons_frame, text = '+', command = display_inc_oct)
     Octave_Add_Btn.pack(side = tk.LEFT)
     
-    #//////////// Octave  Sub btn //////////
+    #Octave Sub btn
     Octave_Sub_Btn = ttk.Button(master = adjusting_buttons_frame, text = '-', command = display_dec_oct)
     Octave_Sub_Btn.pack(side = tk.LEFT)
-    #//////////////////////////////
+    
     Oct_ind_label.pack(side = tk.LEFT, padx = 10)
     
        
@@ -113,11 +114,6 @@ if __name__ == "__main__":
     #Packing Frames of main Window
     gui.ttk_pack_GUI_Frames(title_frame, notes_frame, adjusting_buttons_frame)
     
-    
-    
-    #///////////////////
-    #//////// DEBUG
-    #///////////////////
 
 
     root.after(2000,test_main_loop)
